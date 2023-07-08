@@ -12,7 +12,7 @@ class VoiceBase(AbstractSingleton):
     Base class for all voice classes.
     """
 
-    def __init__(self, config: Config):
+    def __init__(self, config: Config = None):
         """
         Initialize the voice class.
         """

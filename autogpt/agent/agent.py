@@ -166,7 +166,7 @@ class Agent:
                         assistant_reply_json, assistant_reply, self.config
                     )
                     if self.config.speak_mode:
-                        say_text(f"I want to execute {command_name}")
+                        say_text(f"I want to execute {command_name}", self.config)
 
                     arguments = self._resolve_pathlike_command_args(arguments)
 
@@ -182,10 +182,11 @@ class Agent:
 
             # First log new-line so user can differentiate sections better in console
             logger.typewriter_log("\n")
+            command_log = "" if command_name is None else remove_ansi_escape(command_name)
             logger.typewriter_log(
                 "NEXT ACTION: ",
                 Fore.CYAN,
-                f"COMMAND = {Fore.CYAN}{remove_ansi_escape(command_name)}{Style.RESET_ALL}  "
+                f"COMMAND = {Fore.CYAN}{command_log}{Style.RESET_ALL}  "
                 f"ARGUMENTS = {Fore.CYAN}{arguments}{Style.RESET_ALL}",
             )
 

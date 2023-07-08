@@ -86,10 +86,10 @@ class Logger(metaclass=Singleton):
         self.chat_plugins = []
 
     def typewriter_log(
-        self, title="", title_color="", content="", speak_text=False, level=logging.INFO
+        self, title="", title_color="", content="", speak_text=False, level=logging.INFO, config=None
     ):
-        if speak_text and self.speak_mode:
-            say_text(f"{title}. {content}")
+        if speak_text and self.speak_mode and config:
+            say_text(f"{title}. {content}", config)
 
         for plugin in self.chat_plugins:
             plugin.report(f"{title}. {content}")
@@ -250,7 +250,10 @@ def remove_color_codes(s: str) -> str:
 
 
 def remove_ansi_escape(s: str) -> str:
-    return s.replace("\x1B", "")
+    if s is None:
+        return ""
+    else:
+        return s.replace("\x1B", "")
 
 
 logger = Logger()
